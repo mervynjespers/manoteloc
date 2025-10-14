@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="MaNoteLoc - Score de fiabilité locataire basé sur votre historique de paiement réel. Pour les freelances, CDD, et agences immobilières en Belgique et France.">
+    <title>MaNoteLoc - Votre score locataire de confiance</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #1f2937;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(135deg, #0984e3, #00b894);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .nav-cta {
+            background: linear-gradient(135deg, #0984e3, #00b894);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+        
+        .nav-cta:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0984e3 0%, #00b894 100%);
+            color: #1f2937;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s;
+        }
+        
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.95;
+            animation: fadeInUp 0.8s 0.2s backwards;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: white;
+            color: #0984e3;
+            padding: 18px 50px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s;
+            animation: fadeInUp 0.8s 0.4s backwards;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .hero-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .hero-note {
+            margin-top: 20px;
+            font-size: 0.9em;
+            opacity: 0.8;
+            font-style: italic;
+            color: #1f2937;
+        }
+        
+        /* Section générique */
+        section {
+            padding: 80px 0;
+        }
+        
+        section:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2em;
+            color: #6b7280;
+            margin-bottom: 60px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Problème Section */
+        .problem-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .problem-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .problem-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .problem-card h3 {
+            color: #0984e3;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-align: center;
+        }
+        
+        .problem-card p {
+            text-align: center;
+        }
+        
+        /* Solution Section */
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .solution-card {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .solution-icon {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+        
+        .solution-card h3 {
+            color: #0984e3;
+            margin-bottom: 15px;
+        }
+        
+        /* Comment ça marche */
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .step {
+            text-align: center;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+        
+        .step-number {
+            background: linear-gradient(135deg, #0984e3, #00b894);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin: 0 auto 20px;
+        }
+        
+        .step h3 {
+            margin-bottom: 15px;
+            color: #0984e3;
+        }
+        
+        .steps-section-divider {
+            margin: 60px 0 30px 0;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        /* Pricing */
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .pricing-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+            border: 3px solid #e5e7eb;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .pricing-card h3 {
+            font-size: 1.8em;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .pricing-price {
+            font-size: 3em;
+            font-weight: bold;
+            background: linear-gradient(135deg, #0984e3, #00b894);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+        
+        .pricing-period {
+            color: #6b7280;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+        
+        .pricing-features li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-features li::before {
+            content: "✓ ";
+            color: #00b894;
+            font-weight: bold;
+        }
+        
+        /* Beta Section */
+        .beta {
+            background: linear-gradient(135deg, #0984e3 0%, #00b894 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .beta-form {
+            max-width: 600px;
+            margin: 40px auto 0;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        
+        .beta-form h3 {
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1f2937;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0984e3;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0984e3, #00b894);
+            color: white;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(9, 132, 227, 0.4);
+        }
+        
+        .form-note {
+            margin-top: 20px;
+            font-size: 0.85em;
+            color: #6b7280;
+        }
+        
+        /* FAQ */
+        .faq-items {
+            max-width: 800px;
+            margin: 50px auto 0;
+        }
+        
+        .faq-item {
+            background: white;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            padding: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #0984e3;
+            transition: background 0.3s;
+        }
+        
+        .faq-question:hover {
+            background: #f8f9fa;
+        }
+        
+        .faq-answer {
+            padding: 0 25px 25px;
+            color: #6b7280;
+            line-height: 1.8;
+            display: none;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        /* Footer */
+        footer {
+            background: #1f2937;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        footer a {
+            color: #00b894;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2em;
+            }
+            
+            .hero p {
+                font-size: 1.1em;
+            }
+            
+            .section-title {
+                font-size: 2em;
+            }
+            
+            .logo {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">
+                <svg width="40" height="40" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="nav-badge" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0984e3;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#00b894;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <path d="M 50 10 L 75 22 L 75 42 Q 75 52 50 62 Q 25 52 25 42 L 25 22 Z" 
+                          fill="url(#nav-badge)" stroke="white" stroke-width="2"/>
+                    <text x="50" y="45" font-size="20" fill="white" text-anchor="middle" font-weight="bold">A+</text>
+                </svg>
+                <span>MaNoteLoc</span>
+            </div>
+            <a href="#beta" class="nav-cta">Rejoindre la Bêta</a>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>Freelance, CDD, étudiant ?<br>Prouvez votre fiabilité.</h1>
+            <p>MaNoteLoc transforme votre historique de paiement en score de confiance. Fini la discrimination par le CDI.</p>
+            <a href="#beta" class="hero-cta">Créer mon profil gratuitement</a>
+            <p class="hero-note">✓ Gratuit pour les locataires • ✓ Sécurisé & conforme RGPD • ✓ 100 premiers accès anticipés</p>
+        </div>
+    </section>
+
+    <!-- LE PROBLÈME -->
+    <section id="problem">
+        <div class="container">
+            <h2 class="section-title">Le marché locatif est injuste</h2>
+            <p class="section-subtitle">Des milliers de locataires fiables sont refusés à cause de critères arbitraires</p>
+            
+            <div class="problem-cards">
+                <div class="problem-card">
+                    <div class="problem-icon">😤</div>
+                    <h3>Vous : Locataire fiable mais "atypique"</h3>
+                    <p>Freelance, CDD, étudiant ? Vous payez toujours votre loyer à temps mais on vous refuse parce que vous n'avez pas de CDI. C'est injuste.</p>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-icon">😰</div>
+                    <h3>Agences : Peur des impayés</h3>
+                    <p>Vous refusez de bons locataires par manque de garanties. Vos critères stricts vous protègent... mais vous font perdre du temps et de l'argent.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- LA SOLUTION -->
+    <section id="solution">
+        <div class="container">
+            <h2 class="section-title">MaNoteLoc : Le score du bon locataire</h2>
+            <p class="section-subtitle">Prouvez votre fiabilité grâce à votre historique de paiement réel</p>
+            
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <div class="solution-icon">🔒</div>
+                    <h3>Sécurisé & conforme</h3>
+                    <p>Open banking certifié. Vos données sont chiffrées et conformes RGPD. Vous contrôlez tout.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">📊</div>
+                    <h3>Transparent & juste</h3>
+                    <p>Score basé sur votre comportement réel. Pas d'algorithme obscur : méthodologie publique.</p>
+                </div>
+                
+                <div class="solution-card">
+                    <div class="solution-icon">⚡</div>
+                    <h3>Simple & rapide</h3>
+                    <p>Créez votre score en 5 minutes. Partagez-le avec qui vous voulez via un lien sécurisé.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMMENT ÇA MARCHE -->
+    <section id="how">
+        <div class="container">
+            <h2 class="section-title">Comment ça marche ?</h2>
+            <p class="section-subtitle">Simple comme bonjour</p>
+            
+            <div class="steps-section-divider">
+                <span>👤</span>
+                <span>Pour les Locataires</span>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Connectez votre banque</h3>
+                    <p>2 minutes via notre partenaire certifié. Vos identifiants ne sont jamais stockés.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Obtenez votre score</h3>
+                    <p>Analyse automatique de vos 12 derniers mois de paiements de loyer. Score de 0 à 100.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Partagez avec les agences</h3>
+                    <p>Lien sécurisé ou QR code. Valable 30 jours. Révocable à tout moment.</p>
+                </div>
+            </div>
+            
+            <div class="steps-section-divider">
+                <span>🏢</span>
+                <span>Pour les Agences & Propriétaires</span>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Recevez un profil</h3>
+                    <p>Un candidat vous partage son lien MaNoteLoc sécurisé.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Consultez son score</h3>
+                    <p>Score + historique visuel des 12 derniers mois. Données anonymisées et vérifiables.</p>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Décidez en confiance</h3>
+                    <p>Louez à des profils fiables. Réduisez vos impayés.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING -->
+    <section id="pricing">
+        <div class="container">
+            <h2 class="section-title">Tarifs transparents</h2>
+            <p class="section-subtitle">Pas de surprise, pas de frais cachés</p>
+            
+            <div class="pricing-cards">
+                <!-- Locataires -->
+                <div class="pricing-card">
+                    <h3>Locataires</h3>
+                    <div class="pricing-price">Gratuit</div>
+                    <div class="pricing-period">Création & consultation</div>
+                    <ul class="pricing-features">
+                        <li>Créer votre profil</li>
+                        <li>Connecter votre banque</li>
+                        <li>Voir votre score</li>
+                        <li>Historique 12 derniers mois</li>
+                    </ul>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 2px solid #eee;">
+                        <p style="font-size: 0.9em; color: #6b7280; margin-bottom: 15px;"><strong>Quand vous cherchez un logement :</strong></p>
+                        <div style="text-align: left; font-size: 0.9em; margin-bottom: 10px;">
+                            <strong>Starter : 9,99 €</strong><br>
+                            <span style="color: #6b7280;">5 liens sécurisés (30 j chacun)</span>
+                        </div>
+                        <div style="text-align: left; font-size: 0.9em;">
+                            <strong>Unlimited : 14,99 €</strong><br>
+                            <span style="color: #6b7280;">Liens illimités pendant 30 j</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Agences -->
+                <div class="pricing-card">
+                    <h3>Agences Immobilières</h3>
+                    <div class="pricing-price">49 €</div>
+                    <div class="pricing-period">par mois</div>
+                    <ul class="pricing-features">
+                        <li>Consultations illimitées</li>
+                        <li>Accès à tous les profils</li>
+                        <li>Dashboard simple</li>
+                        <li>Support email</li>
+                        <li>Annulable à tout moment</li>
+                    </ul>
+                </div>
+                
+                <!-- Propriétaires -->
+                <div class="pricing-card">
+                    <h3>Propriétaires Privés</h3>
+                    <div class="pricing-price">5 €</div>
+                    <div class="pricing-period">par annonce (60 jours)</div>
+                    <ul class="pricing-features">
+                        <li>Consultations illimitées</li>
+                        <li>Tous les candidats MaNoteLoc</li>
+                        <li>Valable 60 jours</li>
+                        <li>Idéal pour 1-2 biens/an</li>
+                    </ul>
+                    <div style="margin-top: 20px; padding: 15px; background: #f0fdf4; border-radius: 8px; font-size: 0.85em; text-align: left; border: 2px solid #00b894;">
+                        <strong style="color: #00b894;">💡 Comment ça marche :</strong><br>
+                        <span style="color: #6b7280;">Vous payez 5 € une fois, et vous consultez gratuitement tous les profils MaNoteLoc qui répondent à votre annonce pendant 60 jours.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INSCRIPTION BETA -->
+    <section id="beta" class="beta">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">Rejoignez les 100 premiers utilisateurs</h2>
+            <p class="section-subtitle" style="color: rgba(255,255,255,0.9);">Accès anticipé gratuit • Influencez le produit final • Conditions préférentielles</p>
+            
+            <form class="beta-form" id="betaForm">
+                <h3>Inscription Bêta Gratuite</h3>
+                
+                <div class="form-group">
+                    <label for="name">Prénom & Nom *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Téléphone (optionnel)</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="profile">Vous êtes : *</label>
+                    <select id="profile" name="profile" required>
+                        <option value="">Sélectionnez...</option>
+                        <option value="locataire-recherche">Locataire en recherche</option>
+                        <option value="locataire-curieux">Locataire curieux (pas en recherche)</option>
+                        <option value="agence">Agence immobilière</option>
+                        <option value="proprietaire">Propriétaire privé</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Je veux tester MaNoteLoc</button>
+                
+                <p class="form-note">Vos données sont sécurisées et ne seront jamais partagées. Promis.</p>
+            </form>
+            
+            <p style="margin-top: 30px; opacity: 0.9;">Lancement prévu : Q1 2026</p>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+        <div class="container">
+            <h2 class="section-title">Questions fréquentes</h2>
+            <p class="section-subtitle">Tout ce que vous devez savoir</p>
+            
+            <div class="faq-items">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Mes données bancaires sont-elles en sécurité ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Absolument. MaNoteLoc utilise un agrégateur bancaire certifié et régulé (DSP2). Nous ne stockons JAMAIS vos identifiants bancaires. Seules les métadonnées de paiement de loyer sont analysées, et vos données sont chiffrées et conformes RGPD. Vous pouvez révoquer l'accès à tout moment.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Comment est calculé mon score ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Le score (0-100) est basé sur votre historique de paiement de loyer des 12 derniers mois. Vous perdez des points en cas de retards ou d'impayés. Vous gagnez des points bonus si vous avez plus de 12 mois d'historique. La méthodologie complète est publique et transparente.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Je suis freelance/CDD, MaNoteLoc est-il pour moi ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        OUI ! MaNoteLoc a été créé POUR vous. Si vous payez vos loyers à temps mais n'avez pas de CDI, MaNoteLoc vous permet enfin de PROUVER votre fiabilité. C'est exactement le problème qu'on résout.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Qui peut voir mon profil ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Personne, sauf si vous l'activez ! Par défaut, votre profil est privé. Si vous voulez le partager avec une agence ou un propriétaire lorsque vous voulez remettre une candidature pour un logement en location, il vous est possible de générer des liens sécurisés. Vous pouvez révoquer un lien à tout moment. Si vous désactivez le partage, tous les liens deviennent inactifs immédiatement.
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Quand sera disponible MaNoteLoc ?
+                        <span class="faq-arrow">▼</span>
+                    </div>
+                    <div class="faq-answer">
+                        Nous sommes en phase de développement. Les 100 premiers inscrits auront un accès anticipé début 2026. Inscrivez-vous maintenant pour être informé du lancement et bénéficier de conditions préférentielles (accès gratuit étendu).
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p><strong>Email :</strong> <a href="mailto:contact@manoteloc.be">contact@manoteloc.be</a></p>
+            <p style="margin-top: 20px;">&copy; 2025 MaNoteLoc. Tous droits réservés.</p>
+            <p style="margin-top: 10px; font-size: 0.9em; opacity: 0.8;">Belgique & France</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const arrow = question.querySelector('.faq-arrow');
+                const isOpen = answer.classList.contains('active');
+                
+                // Fermer toutes les autres
+                document.querySelectorAll('.faq-answer').forEach(a => a.classList.remove('active'));
+                document.querySelectorAll('.faq-arrow').forEach(a => a.textContent = '▼');
+                
+                // Toggle celle-ci
+                if (!isOpen) {
+                    answer.classList.add('active');
+                    arrow.textContent = '▲';
+                }
+            });
+        });
+        
+        // Beta form
+        document.getElementById('betaForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Récupérer les données
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                profile: document.getElementById('profile').value
+            };
+            
+            // Afficher un message de succès
+            alert('Merci ! Votre inscription a été enregistrée. Vous serez contacté dès le lancement de la bêta 🚀');
+            
+            // Réinitialiser le formulaire
+            e.target.reset();
+            
+            // TODO : Envoyer les données à votre backend ou Google Sheets
+            console.log('Inscription:', formData);
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
